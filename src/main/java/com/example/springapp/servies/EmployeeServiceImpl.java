@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.springapp.exception.MyFileNotFoundException;
 import com.example.springapp.model.Employee;
+import com.example.springapp.model.OrderResponse;
+import com.example.springapp.model.RequestWrapperOrder;
 import com.example.springapp.repository.EmployeeRepository;
 
 @Service
@@ -21,17 +24,29 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee addEmployee(Employee employee) {
-		System.out.println(employee.toString());
+		if(null == employee) {
+			throw new MyFileNotFoundException("Exception Occure due Null");
+		}
 		Employee save = EmployeeRepository.save(employee);
-		System.out.println(save.toString());
+		if(null == save) {
+			throw new MyFileNotFoundException("Failed to add Employee");
+		}
 		return save;
 	}
 
 	@Override
 	public List<Employee> getAllEmployee() {
 		List<Employee> employee = EmployeeRepository.findAll();
-		System.out.println(employee);
 		return employee;
+	}
+
+	@Override
+	public OrderResponse getOrderList(RequestWrapperOrder order) {
+		OrderResponse orderResponse = new OrderResponse();
+		orderResponse.setDepartment("IT");
+		orderResponse.setName("Sagar");
+		orderResponse.setSalary(10000);
+		return orderResponse;
 	}
 
 }
