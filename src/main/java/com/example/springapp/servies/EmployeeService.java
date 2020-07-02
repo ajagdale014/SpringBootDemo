@@ -2,6 +2,7 @@ package com.example.springapp.servies;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 
 import com.example.springapp.model.Employee;
 import com.example.springapp.model.OrderResponse;
@@ -15,4 +16,6 @@ public interface EmployeeService {
 	public List<Employee> getAllEmployee();
 
 	public OrderResponse getOrderList(RequestWrapperOrder order);
+
+	ResponseEntity<Employee> createEmployeeDetail(Employee employee);
 }
